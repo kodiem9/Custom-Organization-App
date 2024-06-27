@@ -1,9 +1,16 @@
 {
     "code-runner.executorMap": {
-        "cpp": "g++  *.cpp  -o organization-app.exe -O1 -Wall -std=c++11 -Wno-missing-braces -I include/ -L lib/ -lraylib -lopengl32 -lgdi32 -lwinmm  &&  ./organization-app.exe"
+        "cpp": "g++  *.cpp  source/*.cpp  -o organization-app.exe -O1 -Wall -std=c++11 -Wno-missing-braces -I raylib/ -L lib/ -lraylib -lopengl32 -lgdi32 -lwinmm  &&  ./organization-app.exe"
     },
     "files.exclude": {
         ".gitignore": true,
-        "*.exe": true
+        "*.exe": true,
+        "raylib": true,
+        "lib": true
+    },
+    "files.associations": {
+        "vector": "cpp",
+        "format": "cpp",
+        "xstring": "cpp"
     }
 }

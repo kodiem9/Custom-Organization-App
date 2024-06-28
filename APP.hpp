@@ -1,5 +1,6 @@
 #pragma once
 #include "include/Button.hpp"
+#include "include/TextBox.hpp"
 #include <iostream>
 
 class APP
@@ -11,5 +12,6 @@ class APP
     
     private:
         Button button;
+        TextBox text_box;
         Font font;
 };

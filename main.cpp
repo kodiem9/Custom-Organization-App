@@ -7,7 +7,6 @@ const short int APP_FPS = 60;
 
 int main()
 {
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, APP_NAME);
     SetTargetFPS(APP_FPS);
 

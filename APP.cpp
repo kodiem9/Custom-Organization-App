@@ -6,6 +6,8 @@ APP::APP()
                 0.3f, 50, FIRE_TEST_1);
     button.Init(GetScreenWidth() / 2 + 200, GetScreenHeight() / 2, 200, 50,
                 0.3f, 50, FIRE_TEST_2);
+    
+    font = LoadFontEx("fonts/JetBrainsMono.ttf", 200, 0, 256);
 }
 
 
@@ -13,12 +15,15 @@ APP::APP()
 void APP::Draw()
 {
     button.Draw();
+
+    DrawTextEx(font, "Organization App", Vector2{GetScreenWidth() / 2 -
+                (MeasureTextEx(font, "Organization App", 100, 1).x) / 2, 30}, 100, 1, BLACK);
 }
 
 void APP::Update()
 {
     button.Update();
-    
+
     switch(button.FireEvent())
     {
         case FIRE_TEST_1:

@@ -11,4 +11,5 @@ class APP
     
     private:
         Button button;
+        Font font;
 };

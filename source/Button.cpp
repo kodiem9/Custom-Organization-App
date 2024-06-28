@@ -5,6 +5,7 @@ Button::Button()
     data.width = data.height = 100;
     data.x = GetScreenWidth() / 2;
     data.y = GetScreenHeight() / 2;
+    mouse_pressed = false;
 }
 
 
@@ -22,16 +23,16 @@ void Button::Draw()
 
 void Button::Update()
 {
-    if(MouseOverlap()) {
-        if(IsMouseButtonDown(MOUSE_BUTTON_LEFT) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-        color = GREEN; else color = YELLOW;
-    } else color = RED;
-}
+    if(utils::MouseOverlap(data.x, data.y, data.width, data.height)) {
+        if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) mouse_pressed = true;
 
-
-// * PRIVATE FUNCTIONS
-bool Button::MouseOverlap()
-{
-    return (GetMouseX() > data.x - data.width / 2 && GetMouseX() < data.x + data.width / 2 &&
-            GetMouseY() > data.y - data.height / 2 && GetMouseY() < data.y + data.height / 2);
+        if(IsMouseButtonDown(MOUSE_BUTTON_LEFT) && mouse_pressed)
+            color = GREEN;
+        else
+            color = YELLOW;
+    }
+    else {
+        mouse_pressed = false;
+        color = RED;
+    }
 }

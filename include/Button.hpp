@@ -1,5 +1,6 @@
 #pragma once
 #include "../raylib/raylib.h"
+#include "Utils.hpp"
 
 struct Button_Data
 {
@@ -15,8 +16,7 @@ class Button
         void Update();
     
     private:
-        bool MouseOverlap();
-
         Button_Data data;
         Color color;
+        bool mouse_pressed;
 };

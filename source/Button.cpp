@@ -1,38 +1,40 @@
 #include "../include/Button.hpp"
 
-Button::Button()
-{
-    data.width = data.height = 100;
-    data.x = GetScreenWidth() / 2;
-    data.y = GetScreenHeight() / 2;
-    mouse_pressed = false;
-}
-
 
 // * PUBLIC FUNCTIONS
-void Button::Init(Vector2 pos, int width, int height)
+void Button::Init(int x, int y, int width, int height)
 {
-    data.x = pos.x; data.y = pos.y;
-    data.width = width; data.height = height;
+    Button_Data temp_button;
+
+    temp_button.x = x;
+    temp_button.y = y;
+    temp_button.width = width;
+    temp_button.height = height;
+
+    buttons.push_back(temp_button);
 }
 
 void Button::Draw()
 {
-    DrawRectangle(data.x - data.width / 2, data.y - data.height / 2, data.width, data.height, color);
+    for(Button_Data button: buttons) {
+        DrawRectangle(button.x - button.width / 2, button.y - button.height / 2, button.width, button.height, button.color);
+    }
 }
 
 void Button::Update()
 {
-    if(utils::MouseOverlap(data.x, data.y, data.width, data.height)) {
-        if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) mouse_pressed = true;
+    for(Button_Data &button: buttons) {
+        if(utils::MouseOverlap(button.x, button.y, button.width, button.height)) {
+            if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) button.mouse_pressed = true;
 
-        if(IsMouseButtonDown(MOUSE_BUTTON_LEFT) && mouse_pressed)
-            color = GREEN;
-        else
-            color = YELLOW;
-    }
-    else {
-        mouse_pressed = false;
-        color = RED;
+            if(IsMouseButtonDown(MOUSE_BUTTON_LEFT) && button.mouse_pressed)
+                button.color = GREEN;
+            else
+                button.color = YELLOW;
+        }
+        else {
+            button.mouse_pressed = false;
+            button.color = RED;
+        }
     }
 }

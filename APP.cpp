@@ -2,7 +2,8 @@
 
 APP::APP()
 {
-    button.Init(Vector2{ (float)GetScreenWidth() / 2, (float)GetScreenHeight() / 2 }, 100, 100);
+    button.Init(((float)GetScreenWidth() / 2) - 100, (float)GetScreenHeight() / 2, 100, 100);
+    button.Init(((float)GetScreenWidth() / 2) + 100, (float)GetScreenHeight() / 2, 100, 100);
 }
 
 

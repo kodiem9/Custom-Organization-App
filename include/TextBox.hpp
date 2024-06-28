@@ -5,6 +5,9 @@
 #include <string>
 #include <iostream>
 
+#define HOLD_BUFFER_SIZE 30
+#define WAIT_BUFFER_SIZE 1
+
 struct TextBox_Data
 {
     short x, y, width, height;
@@ -32,6 +35,6 @@ class TextBox
 
         Font font;
         std::vector<TextBox_Data> text_boxes;
-        char key; 
+        char key, event; 
         short hold_buffer, wait_buffer;
 };

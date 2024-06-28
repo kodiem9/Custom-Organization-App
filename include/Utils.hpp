@@ -3,5 +3,6 @@
 
 namespace utils
 {
-    bool MouseOverlap(int x, int y, int width, int height);
+    bool MouseOverlap(short x, short y, short width, short height);
+    bool BufferKeyPressed(short key, char buffer);
 };

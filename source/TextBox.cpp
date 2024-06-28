@@ -4,7 +4,7 @@
 TextBox::TextBox()
 {
     font = LoadFontEx("fonts/JetBrainsMono.ttf", 200, 0, 256);
-    hold_buffer = 30;
+    hold_buffer = HOLD_BUFFER_SIZE;
     wait_buffer = 0;
 }
 
@@ -74,12 +74,14 @@ void TextBox::Type(std::string *text, const short width, const short height)
         if((MeasureTextEx(font, text->c_str()-1, height, 1).x) < width)
             (*text) += key;
 
+
+    event = GetKeyPressed();
     //whenever a special key is pressed (ex. backspace)  -  when you hold it, it does the event faster
     //the wait buffer slows down the event time, so its not so fast
-    if(IsKeyPressed(KEY_BACKSPACE) || (IsKeyDown(KEY_BACKSPACE) && hold_buffer == 0)) {
+    if(utils::BufferKeyPressed(KEY_BACKSPACE, hold_buffer)) {
 
         if(wait_buffer == 0) {
-            wait_buffer = 1;
+            wait_buffer = WAIT_BUFFER_SIZE;
             (*text) = text->substr(0, text->length() - 1);
         } else wait_buffer--;
 
@@ -90,7 +92,7 @@ void TextBox::Type(std::string *text, const short width, const short height)
     }
 
     if(IsKeyReleased(KEY_BACKSPACE)) {
-        hold_buffer = 30;
+        hold_buffer = HOLD_BUFFER_SIZE;
         wait_buffer = 0;
     }
 }

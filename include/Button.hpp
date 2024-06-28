@@ -3,20 +3,37 @@
 #include "Utils.hpp"
 #include <vector>
 
+enum Button_Events
+{
+    FIRE_NULL = 0,
+    FIRE_TEST_1,
+    FIRE_TEST_2
+};
+
 struct Button_Data
 {
-    int x, y, width, height;
+    short x, y, width, height;
     bool mouse_pressed;
+
+    float roundness;
+    char smoothness;
+
+    char type;
+
     Color color;
 };
 
 class Button
 {
     public:
-        void Init(int x, int y, int width, int height);
+        Button();
+        void Init(short x, short y, short width, short height,
+                    float roundness, char smoothness, char type);
         void Draw();
         void Update();
+        char FireEvent();
     
     private:
         std::vector<Button_Data> buttons;
+        char fire_event;
 };

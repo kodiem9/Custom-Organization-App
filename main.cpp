@@ -22,6 +22,7 @@ int main()
         ClearBackground(LIGHTGRAY);
 
         app.Draw();
+        DrawFPS(10, 10);
 
         EndDrawing();
     }

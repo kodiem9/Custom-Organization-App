@@ -1,6 +1,19 @@
 #include "../include/TextBox.hpp"
 
 
+TextBox::TextBox()
+{
+    font = LoadFontEx("fonts/JetBrainsMono.ttf", 200, 0, 256);
+    hold_buffer = 30;
+    wait_buffer = 0;
+}
+
+TextBox::~TextBox()
+{
+    UnloadFont(font);
+}
+
+
 // * PUBLIC FUNCTIONS
 void TextBox::Init(short x, short y, short width, short height, float roundness, char smoothness)
 {
@@ -23,6 +36,7 @@ void TextBox::Draw()
 {
     for(TextBox_Data text_box: text_boxes) {
         DrawRectangleRounded(Rectangle{(float)text_box.x, (float)text_box.y, (float)text_box.width, (float)text_box.height}, text_box.roundness, text_box.smoothness, text_box.color);
+        DrawTextEx(font, text_box.text.c_str(), Vector2{ (float)text_box.x, (float)text_box.y }, 50, 1, BLACK);
     }
 }
 
@@ -41,10 +55,42 @@ void TextBox::Update()
             }
         }
 
-        if(text_box.selected)
+        if(text_box.selected) {
             text_box.color = GREEN;
-        else
-            text_box.color = GRAY;
+            Type(&text_box.text, text_box.width, text_box.height);
+        }
+        else text_box.color = GRAY;
 
+    }
+}
+
+void TextBox::Type(std::string *text, const short width, const short height)
+{
+    // DISCLAIMER, THE HOLD EVENT FOR NORMAL KEYS IS AUTOMATIC!
+    key = GetCharPressed();
+    
+    if(key != 0)
+        //checks if the text length is higher than the width of the text box, or not
+        if((MeasureTextEx(font, text->c_str()-1, height, 1).x) < width)
+            (*text) += key;
+
+    //whenever a special key is pressed (ex. backspace)  -  when you hold it, it does the event faster
+    //the wait buffer slows down the event time, so its not so fast
+    if(IsKeyPressed(KEY_BACKSPACE) || (IsKeyDown(KEY_BACKSPACE) && hold_buffer == 0)) {
+
+        if(wait_buffer == 0) {
+            wait_buffer = 1;
+            (*text) = text->substr(0, text->length() - 1);
+        } else wait_buffer--;
+
+    }
+    
+    if(IsKeyDown(KEY_BACKSPACE)) {
+        if(hold_buffer > 0) hold_buffer--;
+    }
+
+    if(IsKeyReleased(KEY_BACKSPACE)) {
+        hold_buffer = 30;
+        wait_buffer = 0;
     }
 }

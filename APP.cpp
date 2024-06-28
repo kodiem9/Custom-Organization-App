@@ -12,6 +12,11 @@ APP::APP()
     font = LoadFontEx("fonts/JetBrainsMono.ttf", 200, 0, 256);
 }
 
+APP::~APP()
+{
+    UnloadFont(font);
+}
+
 
 // * PUBLIC FUNCTIONS
 void APP::Draw()

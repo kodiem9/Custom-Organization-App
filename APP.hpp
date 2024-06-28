@@ -7,6 +7,7 @@ class APP
 {
     public:
         APP();
+        ~APP();
         void Draw();
         void Update();
     

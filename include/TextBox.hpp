@@ -5,9 +5,10 @@
 #include <string>
 #include <iostream>
 
-#define HOLD_BUFFER_SIZE 30
-#define WAIT_BUFFER_SIZE 1
-#define CURSOR_LIFE_TIME 40
+#define HOLD_BUFFER_SIZE    30
+#define WAIT_BUFFER_SIZE    1
+#define CURSOR_LIFE_TIME    40
+#define TEXT_BOX_OFFSET_X   10
 
 struct TextBox_Data
 {
@@ -18,6 +19,7 @@ struct TextBox_Data
 
     float roundness;
     char smoothness;
+    char font_size;
 
     Color color;
 };
@@ -35,7 +37,7 @@ class TextBox
     public:
         TextBox();
         ~TextBox();
-        void Init(short x, short y, short width, short height, float roundess, char smoothness);
+        void Init(short x, short y, short width, short height, float roundess, char smoothness, short font_size);
         void Draw();
         void Update();
     

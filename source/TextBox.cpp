@@ -21,7 +21,7 @@ TextBox::~TextBox()
 
 
 // * PUBLIC FUNCTIONS
-void TextBox::Init(short x, short y, short width, short height, float roundness, char smoothness)
+void TextBox::Init(short x, short y, short width, short height, float roundness, char smoothness, short font_size)
 {
     TextBox_Data temp_text_box;
 
@@ -33,6 +33,7 @@ void TextBox::Init(short x, short y, short width, short height, float roundness,
     temp_text_box.selected = false;
     temp_text_box.roundness = roundness;
     temp_text_box.smoothness = smoothness;
+    temp_text_box.font_size = font_size;
     temp_text_box.color = GRAY;
 
     text_boxes.push_back(temp_text_box);
@@ -42,7 +43,7 @@ void TextBox::Draw()
 {
     for(TextBox_Data text_box: text_boxes) {
         DrawRectangleRounded(Rectangle{(float)text_box.x, (float)text_box.y, (float)text_box.width, (float)text_box.height}, text_box.roundness, text_box.smoothness, text_box.color);
-        DrawTextEx(font, text_box.text.c_str(), Vector2{ (float)text_box.x, (float)text_box.y }, text_box.height, 1, BLACK);
+        DrawTextEx(font, text_box.text.c_str(), Vector2{ (float)text_box.x + TEXT_BOX_OFFSET_X, (float)text_box.y }, text_box.font_size, 1, BLACK);
         if(text_box.selected && cursor.visible) DrawRectangle(cursor.x, cursor.y, cursor.width, cursor.height, WHITE);
     }
 }
@@ -83,7 +84,7 @@ void TextBox::Type(TextBox_Data *textbox)
     
     if(key != 0) {
         //checks if the text length is higher than the width of the text box, or not
-        if(MeasureTextEx(font, textbox->text.c_str(), textbox->height, 1).x < textbox->width) {
+        if(MeasureTextEx(font, textbox->text.c_str(), textbox->font_size, 1).x + (textbox->font_size / 2) < textbox->width) {
             textbox->text += key;
             Cursor(textbox);
         }
@@ -112,6 +113,7 @@ void TextBox::Type(TextBox_Data *textbox)
         wait_buffer = 0;
     }
 
+    //cursor "animation"/flickering when not typing
     cursor.life_time--;
     if(cursor.life_time < 1) {
         cursor.life_time = CURSOR_LIFE_TIME;
@@ -121,7 +123,7 @@ void TextBox::Type(TextBox_Data *textbox)
 
 void TextBox::Cursor(TextBox_Data *textbox)
 {
-    cursor.x = textbox->x + MeasureTextEx(font, textbox->text.c_str(), textbox->height, 1).x + 5;
+    cursor.x = textbox->x + MeasureTextEx(font, textbox->text.c_str(), textbox->font_size, 1).x + TEXT_BOX_OFFSET_X + 5;
     cursor.y = textbox->y + 5;
     cursor.life_time = CURSOR_LIFE_TIME;
     cursor.visible = true;

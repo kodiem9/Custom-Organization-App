@@ -6,8 +6,8 @@ APP::APP()
                 0.3f, 50, FIRE_TEST_1);
     button.Init(GetScreenWidth() / 2 + 150, GetScreenHeight() - 150, 150, 150,
                 0.3f, 50, FIRE_TEST_2);
-    text_box.Init(GetScreenWidth() / 2, 200, 800, 50, 0.3f, 50);
-    text_box.Init(GetScreenWidth() / 2, 300, 800, 50, 0.3f, 50);
+    text_box.Init(GetScreenWidth() / 2, 200, 800, 50, 0.3f, 50, 50);
+    text_box.Init(GetScreenWidth() / 2, 350, 800, 200, 0.3f, 50, 50);
     
     font = LoadFontEx("fonts/JetBrainsMono.ttf", 100, 0, 256);
 }

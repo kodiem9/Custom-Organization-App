@@ -9,7 +9,7 @@ APP::APP()
     text_box.Init(GetScreenWidth() / 2, 200, 800, 50, 0.3f, 50);
     text_box.Init(GetScreenWidth() / 2, 300, 800, 50, 0.3f, 50);
     
-    font = LoadFontEx("fonts/JetBrainsMono.ttf", 200, 0, 256);
+    font = LoadFontEx("fonts/JetBrainsMono.ttf", 100, 0, 256);
 }
 
 APP::~APP()

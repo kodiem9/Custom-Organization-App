@@ -1,9 +1,9 @@
-// * WINDOWS - g++  *.cpp  source/*.cpp  -o organization-app.exe -O1 -Wall -std=c++11 -Wno-missing-braces -I raylib/ -L lib/ -lraylib -lopengl32 -lgdi32 -lwinmm  &&  ./organization-app.exe
+// * WINDOWS - g++  *.cpp  source/*.cpp  -static  -o organization-app.exe -O1 -Wall -std=c++11 -Wno-missing-braces -I raylib/ -L lib/ -lraylib -lopengl32 -lgdi32 -lwinmm  &&  ./organization-app.exe
 // * MAC - g++  *.cpp  source/*.cpp  -std=c++11  -L lib/ -framework CoreVideo -framework IOKit -framework Cocoa -framework GLUT -framework OpenGL lib/libraylib.a -o organization-app  &&  ./organization-app
 
 {
     "code-runner.executorMap": {
-        "cpp": "g++  *.cpp  source/*.cpp  -o organization-app.exe -O1 -Wall -std=c++11 -Wno-missing-braces -I raylib/ -L lib/ -lraylib -lopengl32 -lgdi32 -lwinmm  &&  ./organization-app.exe"
+        "cpp": "g++  *.cpp  source/*.cpp  -static  -o organization-app.exe -O1 -Wall -std=c++11 -Wno-missing-braces -I raylib/ -L lib/ -lraylib -lopengl32 -lgdi32 -lwinmm  &&  ./organization-app.exe"
     },
     "files.exclude": {
         ".gitignore": true,
@@ -66,6 +66,26 @@
         "typeinfo": "cpp",
         "unordered_map": "cpp",
         "variant": "cpp",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "xlocale": "cpp",
+        "bit": "cpp",
+        "compare": "cpp",
+        "concepts": "cpp",
+        "fstream": "cpp",
+        "iterator": "cpp",
+        "memory": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp",
+        "xfacet": "cpp",
+        "xiosbase": "cpp",
+        "xlocbuf": "cpp",
+        "xlocinfo": "cpp",
+        "xlocmes": "cpp",
+        "xlocmon": "cpp",
+        "xlocnum": "cpp",
+        "xloctime": "cpp",
+        "xmemory": "cpp",
+        "xtr1common": "cpp",
+        "xutility": "cpp"
     }
 }

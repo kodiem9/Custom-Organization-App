@@ -3,9 +3,15 @@
 
 TextBox::TextBox()
 {
-    font = LoadFontEx("fonts/JetBrainsMono.ttf", 200, 0, 256);
+    font = LoadFontEx("fonts/JetBrainsMono.ttf", 50, 0, 256);
     hold_buffer = HOLD_BUFFER_SIZE;
     wait_buffer = 0;
+
+    cursor.x = cursor.y = 0;
+    cursor.width = 3;
+    cursor.height = 40;
+    cursor.life_time = CURSOR_LIFE_TIME;
+    cursor.visible = true;
 }
 
 TextBox::~TextBox()
@@ -36,7 +42,8 @@ void TextBox::Draw()
 {
     for(TextBox_Data text_box: text_boxes) {
         DrawRectangleRounded(Rectangle{(float)text_box.x, (float)text_box.y, (float)text_box.width, (float)text_box.height}, text_box.roundness, text_box.smoothness, text_box.color);
-        DrawTextEx(font, text_box.text.c_str(), Vector2{ (float)text_box.x, (float)text_box.y }, 50, 1, BLACK);
+        DrawTextEx(font, text_box.text.c_str(), Vector2{ (float)text_box.x, (float)text_box.y }, text_box.height, 1, BLACK);
+        if(text_box.selected && cursor.visible) DrawRectangle(cursor.x, cursor.y, cursor.width, cursor.height, WHITE);
     }
 }
 
@@ -47,32 +54,40 @@ void TextBox::Update()
         if(utils::MouseOverlap(text_box.x, text_box.y, text_box.width, text_box.height)) {
             if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
                 text_box.selected = true;
+                Cursor(&text_box);
             }
         }
         else {
             if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
                 text_box.selected = false;
+                cursor.life_time = CURSOR_LIFE_TIME;
+                cursor.visible = true;
             }
         }
 
         if(text_box.selected) {
             text_box.color = GREEN;
-            Type(&text_box.text, text_box.width, text_box.height);
+            Type(&text_box);
         }
         else text_box.color = GRAY;
 
     }
 }
 
-void TextBox::Type(std::string *text, const short width, const short height)
+
+// * PRIVATE FUNCTIONS
+void TextBox::Type(TextBox_Data *textbox)
 {
     // DISCLAIMER, THE HOLD EVENT FOR NORMAL KEYS IS AUTOMATIC!
     key = GetCharPressed();
     
-    if(key != 0)
+    if(key != 0) {
         //checks if the text length is higher than the width of the text box, or not
-        if((MeasureTextEx(font, text->c_str()-1, height, 1).x) < width)
-            (*text) += key;
+        if(MeasureTextEx(font, textbox->text.c_str(), textbox->height, 1).x < textbox->width) {
+            textbox->text += key;
+            Cursor(textbox);
+        }
+    }
 
 
     event = GetKeyPressed();
@@ -82,7 +97,8 @@ void TextBox::Type(std::string *text, const short width, const short height)
 
         if(wait_buffer == 0) {
             wait_buffer = WAIT_BUFFER_SIZE;
-            (*text) = text->substr(0, text->length() - 1);
+            textbox->text = textbox->text.substr(0, textbox->text.length() - 1);
+            Cursor(textbox);
         } else wait_buffer--;
 
     }
@@ -95,4 +111,18 @@ void TextBox::Type(std::string *text, const short width, const short height)
         hold_buffer = HOLD_BUFFER_SIZE;
         wait_buffer = 0;
     }
+
+    cursor.life_time--;
+    if(cursor.life_time < 1) {
+        cursor.life_time = CURSOR_LIFE_TIME;
+        cursor.visible = !cursor.visible;
+    }
+}
+
+void TextBox::Cursor(TextBox_Data *textbox)
+{
+    cursor.x = textbox->x + MeasureTextEx(font, textbox->text.c_str(), textbox->height, 1).x + 5;
+    cursor.y = textbox->y + 5;
+    cursor.life_time = CURSOR_LIFE_TIME;
+    cursor.visible = true;
 }

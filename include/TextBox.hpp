@@ -7,6 +7,7 @@
 
 #define HOLD_BUFFER_SIZE 30
 #define WAIT_BUFFER_SIZE 1
+#define CURSOR_LIFE_TIME 40
 
 struct TextBox_Data
 {
@@ -21,6 +22,14 @@ struct TextBox_Data
     Color color;
 };
 
+struct Cursor_Data
+{
+    short x, y;
+    short width, height;
+    short life_time;
+    bool visible;
+};
+
 class TextBox
 {
     public:
@@ -31,10 +40,12 @@ class TextBox
         void Update();
     
     private:
-        void Type(std::string *text, const short width, const short height);
+        void Type(TextBox_Data *textbox);
+        void Cursor(TextBox_Data *textbox);
 
         Font font;
         std::vector<TextBox_Data> text_boxes;
+        Cursor_Data cursor;
         char key, event; 
         short hold_buffer, wait_buffer;
 };

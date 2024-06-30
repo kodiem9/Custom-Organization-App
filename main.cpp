@@ -9,6 +9,7 @@ int main()
 {
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, APP_NAME);
     SetTargetFPS(APP_FPS);
+    InitAudioDevice();
 
     APP app;
 

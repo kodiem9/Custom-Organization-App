@@ -39,11 +39,13 @@ void APP::Draw()
             break;
         }
 
+
         case DEBUG_SCENE:
         {
             border.Draw();
             break;
         }
+
 
         default: break;
     }
@@ -57,6 +59,7 @@ void APP::Update()
         else
             CURRENT_SCENE = MAIN_MENU_SCENE;
     }
+
     
     switch(CURRENT_SCENE)
     {
@@ -79,10 +82,12 @@ void APP::Update()
             break;
         }
 
+
         case DEBUG_SCENE:
         {
             break;
         }
+        
 
         default: break;
     }

@@ -4,6 +4,13 @@
 Button::Button()
 {
     fire_event = FIRE_NULL;
+
+    sound_hover = LoadSound("sounds/sticky.ogg");
+    sound_click = LoadSound("sounds/click.ogg");
+
+    if(IsSoundReady(sound_click) == false || IsSoundReady(sound_hover)) {
+        std::cout << "ERROR" << std::endl;
+    }
 }
 
 
@@ -34,12 +41,24 @@ void Button::Draw()
 void Button::Update()
 {
     for(Button_Data &button: buttons) {
+
         if(utils::MouseOverlap(button.x, button.y, button.width, button.height)) {
+            if(button.mouse_hover == false) {
+                button.mouse_hover = true;
+                PlaySound(sound_hover);
+            }
+
             if(IsMouseButtonDown(MOUSE_BUTTON_LEFT) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
                 button.color = GREEN;
                 fire_event = button.type;
+                PlaySound(sound_click);
             } else button.color = YELLOW;
-        } else button.color = RED;
+        }
+        else {
+            button.mouse_hover = false;
+            button.color = RED;
+        }
+
     }
 }
 

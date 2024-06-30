@@ -2,6 +2,7 @@
 #include "../raylib/raylib.h"
 #include "Utils.hpp"
 #include <vector>
+#include <iostream>
 
 enum Button_Events
 {
@@ -13,7 +14,7 @@ enum Button_Events
 struct Button_Data
 {
     short x, y, width, height;
-    bool mouse_pressed;
+    bool mouse_pressed, mouse_hover;
 
     float roundness;
     char smoothness;
@@ -34,6 +35,7 @@ class Button
         char FireEvent();
     
     private:
+        Sound sound_hover, sound_click;
         std::vector<Button_Data> buttons;
         char fire_event;
 };

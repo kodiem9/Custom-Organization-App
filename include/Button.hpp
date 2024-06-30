@@ -2,7 +2,6 @@
 #include "../raylib/raylib.h"
 #include "Utils.hpp"
 #include <vector>
-#include <iostream>
 
 enum Button_Events
 {
@@ -33,6 +32,7 @@ class Button
         void Draw();
         void Update();
         char FireEvent();
+        void Reset();
     
     private:
         Sound sound_hover, sound_click;

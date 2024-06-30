@@ -21,6 +21,9 @@ class APP
         void Update();
     
     private:
+        void Init(char scene);
+        void Reset();
+
         Button button;
         TextBox text_box;
         Border border;

@@ -3,14 +3,9 @@
 
 Button::Button()
 {
-    fire_event = FIRE_NULL;
-
+    Reset();
     sound_hover = LoadSound("sounds/sticky.ogg");
     sound_click = LoadSound("sounds/click.ogg");
-
-    if(IsSoundReady(sound_click) == false || IsSoundReady(sound_hover)) {
-        std::cout << "ERROR" << std::endl;
-    }
 }
 
 
@@ -67,4 +62,10 @@ char Button::FireEvent()
     char temp_char = fire_event;
     fire_event = FIRE_NULL;
     return temp_char;
+}
+
+void Button::Reset()
+{
+    buttons.clear();
+    fire_event = FIRE_NULL;
 }

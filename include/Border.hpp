@@ -17,6 +17,7 @@ class Border
     public:
         void Init(short x, short y, short width, short height, float roundess, char smoothness);
         void Draw();
+        void Reset();
     
     private:
         std::vector<Border_Data> borders;

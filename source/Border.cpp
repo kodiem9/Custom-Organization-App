@@ -23,3 +23,8 @@ void Border::Draw()
         DrawRectangleRounded(Rectangle{(float)border.x, (float)border.y, (float)border.width, (float)border.height}, border.roundness, border.smoothness, border.color);
     }
 }
+
+void Border::Reset()
+{
+    borders.clear();
+}

@@ -40,6 +40,7 @@ class TextBox
         void Init(short x, short y, short width, short height, float roundess, char smoothness, short font_size);
         void Draw();
         void Update();
+        void Reset();
     
     private:
         void Type(TextBox_Data *textbox);

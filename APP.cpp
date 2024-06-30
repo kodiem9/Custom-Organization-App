@@ -1,20 +1,12 @@
 #include "APP.hpp"
 
 APP::APP()
-{
-    button.Init(GetScreenWidth() / 2 - 150, GetScreenHeight() - 150, 150, 150,
-                0.3f, 50, FIRE_TEST_1);
-    button.Init(GetScreenWidth() / 2 + 150, GetScreenHeight() - 150, 150, 150,
-                0.3f, 50, FIRE_TEST_2);
-
-    text_box.Init(GetScreenWidth() / 2, 200, 800, 50, 0.3f, 50, 50);
-    text_box.Init(GetScreenWidth() / 2, 350, 800, 200, 0.3f, 50, 50);
-
-    border.Init(GetScreenWidth() / 2, GetScreenHeight() / 2, GetScreenWidth() / 1.5, GetScreenHeight() / 1.5, 0.3f, 50);
-    
+{    
     font = LoadFontEx("fonts/JetBrainsMono.ttf", 100, 0, 256);
 
-    CURRENT_SCENE = MAIN_MENU_SCENE;
+    CURRENT_SCENE = DEBUG_SCENE;
+
+    Init(CURRENT_SCENE);
 }
 
 APP::~APP()
@@ -42,7 +34,7 @@ void APP::Draw()
 
         case DEBUG_SCENE:
         {
-            border.Draw();
+            text_box.Draw();
             break;
         }
 
@@ -58,6 +50,9 @@ void APP::Update()
             CURRENT_SCENE = DEBUG_SCENE;
         else
             CURRENT_SCENE = MAIN_MENU_SCENE;
+        
+        Reset();
+        Init(CURRENT_SCENE);
     }
 
     
@@ -82,13 +77,46 @@ void APP::Update()
             break;
         }
 
-
         case DEBUG_SCENE:
         {
+            text_box.Update();
             break;
         }
-        
+
 
         default: break;
     }
+}
+
+
+// * PRIVATE FUNCTIONS
+void APP::Init(char scene)
+{
+    switch(scene)
+    {
+        case MAIN_MENU_SCENE:
+        {
+            button.Init(GetScreenWidth() / 2 - 150, GetScreenHeight() - 150, 150, 150,
+                        0.3f, 50, FIRE_TEST_1);
+            button.Init(GetScreenWidth() / 2 + 150, GetScreenHeight() - 150, 150, 150,
+                        0.3f, 50, FIRE_TEST_2);
+
+            text_box.Init(GetScreenWidth() / 2, 200, 800, 50, 0.3f, 50, 50);
+            text_box.Init(GetScreenWidth() / 2, 350, 800, 200, 0.3f, 50, 50);
+        }
+
+
+        case DEBUG_SCENE:
+        {
+            text_box.Init(GetScreenWidth() / 2, 350, 800, 200, 0.3f, 50, 50);
+            //border.Init(GetScreenWidth() / 2, GetScreenHeight() / 2, GetScreenWidth() / 1.5, GetScreenHeight() / 1.5, 0.3f, 50);
+        }
+    }
+}
+
+void APP::Reset()
+{
+    button.Reset();
+    text_box.Reset();
+    border.Reset();
 }

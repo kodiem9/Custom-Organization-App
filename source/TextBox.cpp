@@ -3,15 +3,8 @@
 
 TextBox::TextBox()
 {
+    Reset();
     font = LoadFontEx("fonts/JetBrainsMono.ttf", 50, 0, 256);
-    hold_buffer = HOLD_BUFFER_SIZE;
-    wait_buffer = 0;
-
-    cursor.x = cursor.y = 0;
-    cursor.width = 3;
-    cursor.height = 40;
-    cursor.life_time = CURSOR_LIFE_TIME;
-    cursor.visible = true;
 }
 
 TextBox::~TextBox()
@@ -73,6 +66,20 @@ void TextBox::Update()
         else text_box.color = GRAY;
 
     }
+}
+
+void TextBox::Reset()
+{
+    text_boxes.clear();
+    
+    hold_buffer = HOLD_BUFFER_SIZE;
+    wait_buffer = 0;
+
+    cursor.x = cursor.y = 0;
+    cursor.width = 3;
+    cursor.height = 40;
+    cursor.life_time = CURSOR_LIFE_TIME;
+    cursor.visible = true;
 }
 
 

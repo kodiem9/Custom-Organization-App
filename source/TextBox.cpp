@@ -32,6 +32,10 @@ void TextBox::Init(short x, short y, short width, short height, float roundness,
     temp_text_box.font_size = font_size;
     temp_text_box.color = GRAY;
 
+    for(int i = 0; font_size * i <= height; i++) {
+        temp_text_box.offset_y = (height - (font_size * i)) / 2;
+    }
+
     text_boxes.push_back(temp_text_box);
 }
 
@@ -40,24 +44,14 @@ void TextBox::Draw()
     for(TextBox_Data text_box: text_boxes) {
         DrawRectangleRounded(Rectangle{(float)text_box.x, (float)text_box.y, (float)text_box.width, (float)text_box.height}, text_box.roundness, text_box.smoothness, text_box.color);
         for(int i = 0; i < (int)text_box.text.size(); i++) {
-            DrawTextEx(font, text_box.text[i].c_str(), Vector2{ (float)text_box.x + TEXT_BOX_OFFSET_X, (float)text_box.y + (text_box.font_size * i) }, text_box.font_size, 1, BLACK);
+            DrawTextEx(font, text_box.text[i].c_str(), Vector2{ (float)text_box.x + TEXT_BOX_OFFSET_X, (float)text_box.y + (text_box.font_size * i) + text_box.offset_y }, text_box.font_size, 1, BLACK);
         }
-        if(text_box.selected && cursor.visible) DrawRectangle(cursor.x, cursor.y, cursor.width, cursor.height, WHITE);
+        if(text_box.selected && cursor.visible) DrawRectangle(cursor.x, cursor.y + text_box.offset_y, cursor.width, cursor.height, WHITE);
     }
 }
 
 void TextBox::Update()
 {
-    //prints all content from the text box text vectors
-    if(IsKeyPressed(KEY_Q)) {
-        for(TextBox_Data text_box: text_boxes) {
-            for(int i = 0; i < (int)text_box.text.size(); i++) {
-                std::cout << text_box.text[i] << std::endl;
-            }
-            std::cout << std::endl;
-        }
-    }
-
     for(TextBox_Data &text_box: text_boxes) {
 
         if(utils::MouseOverlap(text_box.x, text_box.y, text_box.width, text_box.height)) {
@@ -112,7 +106,7 @@ void TextBox::Type(TextBox_Data *textbox)
     if(key != 0) {
         //checks if the text length is higher than the width of the text box, or not
         bool can_write = (MeasureTextEx(font, text_ptr->c_str(), textbox->font_size, 1).x + (textbox->font_size / 2) < textbox->width);
-        bool can_new_line = (textbox->font_size * (textbox->id + 1) < textbox->height);
+        bool can_new_line = (textbox->font_size * (textbox->id + 2) <= textbox->height);
 
         //adds a new line if the text box is high enough
         if(can_write == false) {
@@ -181,8 +175,6 @@ std::string TextBox::NewLine(std::string *text)
         if((*text)[i] == ' ') {
             result = text->substr(i+1, text->length()-i-1);
             (*text) = text->substr(0, i);
-            std::cout << *text << std::endl;
-            std::cout << result << std::endl;
             break;
         }
    }

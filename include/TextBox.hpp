@@ -3,7 +3,6 @@
 #include "Utils.hpp"
 #include <vector>
 #include <string>
-#include <iostream>
 
 #define HOLD_BUFFER_SIZE    30
 #define WAIT_BUFFER_SIZE    1
@@ -14,6 +13,7 @@
 struct TextBox_Data
 {
     short x, y, width, height;
+    short offset_y;
     std::vector<std::string> text;
     char id;
 

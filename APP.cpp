@@ -37,9 +37,6 @@ void APP::Draw()
             text_box.Draw();
             break;
         }
-
-
-        default: break;
     }
 }
 
@@ -77,14 +74,12 @@ void APP::Update()
             break;
         }
 
+
         case DEBUG_SCENE:
         {
             text_box.Update();
             break;
         }
-
-
-        default: break;
     }
 }
 
@@ -103,13 +98,16 @@ void APP::Init(char scene)
 
             text_box.Init(GetScreenWidth() / 2, 200, 800, 50, 0.3f, 50, 50);
             text_box.Init(GetScreenWidth() / 2, 350, 800, 200, 0.3f, 50, 50);
+            break;
         }
 
 
         case DEBUG_SCENE:
         {
-            text_box.Init(GetScreenWidth() / 2, 350, 800, 200, 0.3f, 50, 50);
+            text_box.Init(GetScreenWidth() / 2, 100, 800, 50, 0.3f, 50, 50);
+            text_box.Init(GetScreenWidth() / 2, 300, 800, 200, 0.3f, 50, 50);
             //border.Init(GetScreenWidth() / 2, GetScreenHeight() / 2, GetScreenWidth() / 1.5, GetScreenHeight() / 1.5, 0.3f, 50);
+            break;
         }
     }
 }

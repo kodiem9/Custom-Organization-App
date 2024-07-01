@@ -45,9 +45,9 @@ class TextBox
         void Reset();
     
     private:
-        void Type(TextBox_Data *textbox);
+        void Type(TextBox_Data &textbox);
         std::string NewLine(std::string *text);
-        void Cursor(TextBox_Data *textbox);
+        void Cursor(const TextBox_Data &textbox);
         void SetTextPointer(std::string *ptr);
 
         Font font;

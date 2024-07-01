@@ -57,7 +57,7 @@ void TextBox::Update()
         if(utils::MouseOverlap(text_box.x, text_box.y, text_box.width, text_box.height)) {
             if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
                 text_box.selected = true;
-                Cursor(&text_box);
+                Cursor(text_box);
             }
         }
         else {
@@ -71,7 +71,7 @@ void TextBox::Update()
 
         if(text_box.selected) {
             text_box.color = GREEN;
-            Type(&text_box);
+            Type(text_box);
         }
         else text_box.color = GRAY;
 
@@ -97,24 +97,24 @@ void TextBox::Reset()
 
 
 // * PRIVATE FUNCTIONS
-void TextBox::Type(TextBox_Data *textbox)
+void TextBox::Type(TextBox_Data &textbox)
 {
     // DISCLAIMER, THE HOLD EVENT FOR NORMAL KEYS IS AUTOMATIC!
     key = GetCharPressed();
-    if(text_ptr == NULL) text_ptr = &textbox->text[textbox->id];
+    if(text_ptr == NULL) text_ptr = &textbox.text[textbox.id];
 
     if(key != 0) {
         //checks if the text length is higher than the width of the text box, or not
-        bool can_write = (MeasureTextEx(font, text_ptr->c_str(), textbox->font_size, 1).x + (textbox->font_size / 2) < textbox->width);
-        bool can_new_line = (textbox->font_size * (textbox->id + 2) <= textbox->height);
+        bool can_write = (MeasureTextEx(font, text_ptr->c_str(), textbox.font_size, 1).x + (textbox.font_size / 2) < textbox.width);
+        bool can_new_line = (textbox.font_size * (textbox.id + 2) <= textbox.height);
 
         //adds a new line if the text box is high enough
         if(can_write == false) {
 
             if(can_new_line) {
-                textbox->text.push_back(NewLine(text_ptr));
-                (int)textbox->id++;
-                text_ptr = &textbox->text[textbox->id];
+                textbox.text.push_back(NewLine(text_ptr));
+                textbox.id++;
+                text_ptr = &textbox.text[textbox.id];
             }
         }
 
@@ -132,13 +132,13 @@ void TextBox::Type(TextBox_Data *textbox)
     //whenever a special key is pressed (ex. backspace)  -  when you hold it, it does the event faster
     //the wait buffer slows down the event time, so its not so fast
     //we are also checking if we are pressing backspace when the textbox is empty so the program doesn't break
-    if(utils::BufferKeyPressed(KEY_BACKSPACE, hold_buffer) && (textbox->id == 0 && text_ptr->length() == 0) == false) {
+    if(utils::BufferKeyPressed(KEY_BACKSPACE, hold_buffer) && (textbox.id == 0 && text_ptr->length() == 0) == false) {
 
-        if(text_ptr->length() == 0 && textbox->id != 0) {
-            textbox->text.pop_back();
-            textbox->id--;
-            textbox->text.shrink_to_fit();
-            text_ptr = &textbox->text[textbox->id];
+        if(text_ptr->length() == 0 && textbox.id != 0) {
+            textbox.text.pop_back();
+            textbox.id--;
+            textbox.text.shrink_to_fit();
+            text_ptr = &textbox.text[textbox.id];
         }
         else {
             if(wait_buffer == 0) {
@@ -185,10 +185,10 @@ std::string TextBox::NewLine(std::string *text)
         return result;
 }
 
-void TextBox::Cursor(TextBox_Data *textbox)
+void TextBox::Cursor(const TextBox_Data &textbox)
 {
-    cursor.x = textbox->x + MeasureTextEx(font, textbox->text[textbox->id].c_str(), textbox->font_size, 1).x + TEXT_BOX_OFFSET_X + 5;
-    cursor.y = textbox->y + TEXT_BOX_OFFSET_Y + (textbox->font_size * textbox->id);
+    cursor.x = textbox.x + MeasureTextEx(font, textbox.text[textbox.id].c_str(), textbox.font_size, 1).x + TEXT_BOX_OFFSET_X + 5;
+    cursor.y = textbox.y + TEXT_BOX_OFFSET_Y + (textbox.font_size * textbox.id);
     cursor.life_time = CURSOR_LIFE_TIME;
     cursor.visible = true;
 }

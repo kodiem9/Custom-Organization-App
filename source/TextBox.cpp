@@ -179,10 +179,7 @@ std::string TextBox::NewLine(std::string *text)
         }
    }
 
-    if(result.length() == 0)
-        return "";
-    else
-        return result;
+    return result;
 }
 
 void TextBox::Cursor(const TextBox_Data &textbox)

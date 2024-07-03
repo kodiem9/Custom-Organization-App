@@ -1,15 +1,17 @@
-// * WINDOWS - g++  -O2  *.cpp  source/*.cpp  -static  -o organization-app.exe -O1 -Wall -std=c++11 -Wno-missing-braces -I raylib/ -L lib/ -lraylib -lopengl32 -lgdi32 -lwinmm  &&  ./organization-app.exe
-// * MAC - g++  *.cpp  source/*.cpp  -std=c++11  -L lib/ -framework CoreVideo -framework IOKit -framework Cocoa -framework GLUT -framework OpenGL lib/libraylib.a -o organization-app  &&  ./organization-app
+// * WINDOWS - g++  -O2  main.cpp  source/APP.cpp  source/UI/*.cpp  source/Utils/*.cpp  -static  -o organization-app.exe -O1 -Wall -std=c++11 -Wno-missing-braces -I raylib/ -L lib/ -lraylib -lopengl32 -lgdi32 -lwinmm  &&  ./organization-app.exe
+// * MAC - g++  main.cpp  source/APP.cpp  source/UI/*.cpp  source/Utils/*.cpp  -std=c++11  -L lib/ -framework CoreVideo -framework IOKit -framework Cocoa -framework GLUT -framework OpenGL lib/libraylib.a -o organization-app  &&  ./organization-app
 
 {
     "code-runner.executorMap": {
-        "cpp": "g++  *.cpp  source/*.cpp  -std=c++11  -L lib/ -framework CoreVideo -framework IOKit -framework Cocoa -framework GLUT -framework OpenGL lib/libraylib.a -o organization-app  &&  ./organization-app"
+        "cpp": "g++  main.cpp  source/APP.cpp  source/UI/*.cpp  source/Utils/*.cpp  -std=c++11  -L lib/ -framework CoreVideo -framework IOKit -framework Cocoa -framework GLUT -framework OpenGL lib/libraylib.a -o organization-app  &&  ./organization-app"
     },
     "files.exclude": {
         ".gitignore": true,
         "*.exe": true,
         "raylib": true,
-        "lib": true
+        "lib": true,
+        "*.md": true,
+        "organization-app": true
     },
     "files.associations": {
         "vector": "cpp",

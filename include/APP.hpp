@@ -1,7 +1,7 @@
 #pragma once
-#include "include/Button.hpp"
-#include "include/TextBox.hpp"
-#include "include/Border.hpp"
+#include "UI/Button.hpp"
+#include "UI/TextBox.hpp"
+#include "UI/Border.hpp"
 #include <iostream>
 
 #define TRANSPARENT Color{0, 0, 0, 100}

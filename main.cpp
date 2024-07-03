@@ -1,4 +1,4 @@
-#include "APP.hpp"
+#include "include/APP.hpp"
 
 const short int WINDOW_WIDTH = 1280;
 const short int WINDOW_HEIGHT = 720;

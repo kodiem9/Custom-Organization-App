@@ -1,6 +1,5 @@
 #pragma once
-#include "../raylib/raylib.h"
-#include "Utils.hpp"
+#include "../Utils/Utils.hpp"
 #include <vector>
 
 enum Button_Events

@@ -1,8 +1,8 @@
-#include "APP.hpp"
+#include "../include/APP.hpp"
 
 APP::APP()
 {    
-    font = LoadFontEx("fonts/JetBrainsMono.ttf", 100, 0, 256);
+    font = LoadFontEx("assets/fonts/JetBrainsMono.ttf", 100, 0, 256);
 
     CURRENT_SCENE = DEBUG_SCENE;
 

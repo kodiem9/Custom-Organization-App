@@ -1,11 +1,11 @@
-#include "../include/Button.hpp"
+#include "../../include/UI/Button.hpp"
 
 
 Button::Button()
 {
     Reset();
-    sound_hover = LoadSound("sounds/sticky.ogg");
-    sound_click = LoadSound("sounds/click.ogg");
+    sound_hover = LoadSound("assets/sounds/sticky.ogg");
+    sound_click = LoadSound("assets/sounds/click.ogg");
 }
 
 

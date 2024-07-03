@@ -1,10 +1,10 @@
-#include "../include/TextBox.hpp"
+#include "../../include/UI/TextBox.hpp"
 
 
 TextBox::TextBox()
 {
     Reset();
-    font = LoadFontEx("fonts/JetBrainsMono.ttf", 50, 0, 256);
+    font = LoadFontEx("assets/fonts/JetBrainsMono.ttf", 50, 0, 256);
 }
 
 TextBox::~TextBox()

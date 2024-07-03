@@ -1,8 +1,5 @@
 #pragma once
-#include "WINDOW.hpp"
-#include "UI/Button.hpp"
-#include "UI/TextBox.hpp"
-#include "UI/Border.hpp"
+#include "WINDOW.hpp" //Raylib, button, textbox and border
 #include <iostream>
 
 #define TRANSPARENT Color{0, 0, 0, 100}

@@ -38,18 +38,22 @@ void APP::Draw()
             break;
         }
     }
+
+    window.Draw();
 }
 
 void APP::Update()
 {
-    if(IsKeyPressed(KEY_ZERO)) {
-        if(CURRENT_SCENE == MAIN_MENU_SCENE)
-            CURRENT_SCENE = DEBUG_SCENE;
-        else
-            CURRENT_SCENE = MAIN_MENU_SCENE;
-        
-        Reset();
-        Init(CURRENT_SCENE);
+    if(window.Get() != NEW_PROJECT_WINDOW) {
+        if(IsKeyPressed(KEY_ZERO)) {
+            if(CURRENT_SCENE == MAIN_MENU_SCENE)
+                CURRENT_SCENE = DEBUG_SCENE;
+            else
+                CURRENT_SCENE = MAIN_MENU_SCENE;
+            
+            Reset();
+            Init(CURRENT_SCENE);
+        }
     }
 
     
@@ -57,19 +61,18 @@ void APP::Update()
     {
         case MAIN_MENU_SCENE:
         {
-            button.Update();
-            text_box.Update();
+            if(window.Get() != NEW_PROJECT_WINDOW) {
+                button.Update();
+                text_box.Update();
+            }
 
             switch(button.FireEvent())
             {
-                case FIRE_TEST_1:
-                    std::cout << "Test #1" << std::endl;
+                case FIRE_NEW_PROJECT_WINDOW:
+                    window.Fire(NEW_PROJECT_WINDOW);
                     break;
-                case FIRE_TEST_2:
-                    std::cout << "Test #2" << std::endl;
-                    break;
-                default:
-                    break;
+                
+                default: break;
             }
             break;
         }
@@ -81,6 +84,8 @@ void APP::Update()
             break;
         }
     }
+    
+    window.Update();
 }
 
 
@@ -92,9 +97,9 @@ void APP::Init(char scene)
         case MAIN_MENU_SCENE:
         {
             button.Init(GetScreenWidth() / 2 - 150, GetScreenHeight() - 150, 150, 150,
-                        0.3f, 50, FIRE_TEST_1);
+                        0.3f, 50, FIRE_NEW_PROJECT_WINDOW);
             button.Init(GetScreenWidth() / 2 + 150, GetScreenHeight() - 150, 150, 150,
-                        0.3f, 50, FIRE_TEST_2);
+                        0.3f, 50, FIRE_NULL);
 
             text_box.Init(GetScreenWidth() / 2, 200, 800, 50, 0.3f, 50, 50);
             text_box.Init(GetScreenWidth() / 2, 350, 800, 200, 0.3f, 50, 50);

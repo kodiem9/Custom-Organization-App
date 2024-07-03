@@ -4,9 +4,10 @@
 
 enum Button_Events
 {
-    FIRE_NULL = 0,
-    FIRE_TEST_1,
-    FIRE_TEST_2
+    FIRE_NULL,
+    FIRE_NEW_PROJECT_WINDOW,
+    FIRE_EXIT_NEW_PROJECT_WINDOW,
+    FIRE_CREATE_PROJECT
 };
 
 struct Button_Data

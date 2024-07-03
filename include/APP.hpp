@@ -1,4 +1,5 @@
 #pragma once
+#include "WINDOW.hpp"
 #include "UI/Button.hpp"
 #include "UI/TextBox.hpp"
 #include "UI/Border.hpp"
@@ -24,6 +25,7 @@ class APP
         void Init(char scene);
         void Reset();
 
+        WINDOW window;
         Button button;
         TextBox text_box;
         Border border;

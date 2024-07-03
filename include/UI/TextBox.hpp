@@ -10,19 +10,22 @@
 #define TEXT_BOX_OFFSET_X   10
 #define TEXT_BOX_OFFSET_Y   5
 
+struct TextBox_Properties
+{
+    float roundness;
+    char smoothness;
+    char font_size;
+};
+
 struct TextBox_Data
 {
     short x, y, width, height;
     short offset_y;
     std::vector<std::string> text;
     char id;
-
     bool selected;
 
-    float roundness;
-    char smoothness;
-    char font_size;
-
+    TextBox_Properties properties;
     Color color;
 };
 
@@ -39,7 +42,7 @@ class TextBox
     public:
         TextBox();
         ~TextBox();
-        void Init(short x, short y, short width, short height, float roundess, char smoothness, short font_size);
+        void Init(short x, short y, short width, short height, TextBox_Properties properties);
         void Draw();
         void Update();
         void Reset();

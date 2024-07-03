@@ -59,11 +59,11 @@ void WINDOW::Fire(char scene)
         {
             short mid_screen_x = GetScreenWidth() / 2;
             short mid_screen_y = GetScreenHeight() / 2;
-            border.Init(mid_screen_x, mid_screen_y, mid_screen_x * 1.33, mid_screen_y * 1.33, 0.1f, 50);
-            text_box.Init(mid_screen_x, mid_screen_y - 120, 600, 50, 0.3f, 50, 50);
+            border.Init(mid_screen_x, mid_screen_y, mid_screen_x * 1.33, mid_screen_y * 1.33, Border_Properties{0.1f, 20});
+            text_box.Init(mid_screen_x, mid_screen_y - 120, 600, 50, TextBox_Properties{0.3f, 50, 50});
 
-            button.Init(mid_screen_x - 380, mid_screen_y - 200, 50, 50, 0.3f, 50, FIRE_EXIT_NEW_PROJECT_WINDOW);
-            button.Init(mid_screen_x, mid_screen_y + 190,  300, 50, 0.3f, 50, FIRE_CREATE_PROJECT);
+            button.Init(mid_screen_x - 380, mid_screen_y - 200, 50, 50, Button_Properties{0.3f, 50}, FIRE_EXIT_NEW_PROJECT_WINDOW);
+            button.Init(mid_screen_x, mid_screen_y + 190,  300, 50, Button_Properties{0.3f, 50}, FIRE_CREATE_PROJECT);
             break;
         }
 

@@ -97,21 +97,20 @@ void APP::Init(char scene)
         case MAIN_MENU_SCENE:
         {
             button.Init(GetScreenWidth() / 2 - 150, GetScreenHeight() - 150, 150, 150,
-                        0.3f, 50, FIRE_NEW_PROJECT_WINDOW);
+                        Button_Properties{0.3f, 50}, FIRE_NEW_PROJECT_WINDOW);
             button.Init(GetScreenWidth() / 2 + 150, GetScreenHeight() - 150, 150, 150,
-                        0.3f, 50, FIRE_NULL);
+                        Button_Properties{0.3f, 50}, FIRE_NULL);
 
-            text_box.Init(GetScreenWidth() / 2, 200, 800, 50, 0.3f, 50, 50);
-            text_box.Init(GetScreenWidth() / 2, 350, 800, 200, 0.3f, 50, 50);
+            text_box.Init(GetScreenWidth() / 2, 200, 800, 50, TextBox_Properties{0.3f, 50, 50});
+            text_box.Init(GetScreenWidth() / 2, 350, 800, 200, TextBox_Properties{0.3f, 50, 50});
             break;
         }
 
 
         case DEBUG_SCENE:
         {
-            text_box.Init(GetScreenWidth() / 2, 100, 800, 50, 0.3f, 50, 50);
-            text_box.Init(GetScreenWidth() / 2, 300, 800, 200, 0.3f, 50, 50);
-            //border.Init(GetScreenWidth() / 2, GetScreenHeight() / 2, GetScreenWidth() / 1.5, GetScreenHeight() / 1.5, 0.3f, 50);
+            text_box.Init(GetScreenWidth() / 2, 100, 800, 50, TextBox_Properties{0.3f, 50, 50});
+            text_box.Init(GetScreenWidth() / 2, 300, 800, 200, TextBox_Properties{0.3f, 50, 50});
             break;
         }
     }

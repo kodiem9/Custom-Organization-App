@@ -10,16 +10,18 @@ enum Button_Events
     FIRE_CREATE_PROJECT
 };
 
+struct Button_Properties
+{
+    float roundness;
+    char smoothness;
+};
+
 struct Button_Data
 {
     short x, y, width, height;
     bool mouse_pressed, mouse_hover;
-
-    float roundness;
-    char smoothness;
-
     char type;
-
+    Button_Properties properties;
     Color color;
 };
 
@@ -27,8 +29,7 @@ class Button
 {
     public:
         Button();
-        void Init(short x, short y, short width, short height,
-                    float roundness, char smoothness, char type);
+        void Init(short x, short y, short width, short height, Button_Properties properties, char type);
         void Draw();
         void Update();
         char FireEvent();

@@ -27,6 +27,7 @@ int main()
         EndDrawing();
     }
 
+    CloseAudioDevice();
     CloseWindow();
     return 0;
 }

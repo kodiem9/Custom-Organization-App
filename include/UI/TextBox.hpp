@@ -6,8 +6,7 @@
 #define HOLD_BUFFER_SIZE    30
 #define WAIT_BUFFER_SIZE    1
 #define CURSOR_LIFE_TIME    40
-#define TEXT_BOX_OFFSET_X   10
-#define TEXT_BOX_OFFSET_Y   5
+#define CURSOR_OFFSET_Y     5
 
 struct TextBox_Properties
 {
@@ -19,7 +18,7 @@ struct TextBox_Properties
 struct TextBox_Data
 {
     short x, y, width, height;
-    short offset_y;
+    short offset_y, offset_x;
     std::vector<std::string> text;
     char id;
     bool selected;
@@ -51,6 +50,7 @@ class TextBox
         std::string NewLine(std::string *text);
         void Cursor(const TextBox_Data &textbox);
         void SetTextPointer(std::string *ptr);
+        short TextWidthX(const char* text, char font_size);
 
         Font font;
         std::vector<TextBox_Data> text_boxes;

@@ -35,6 +35,10 @@ void TextBox::Init(short x, short y, short width, short height, TextBox_Properti
     for(int i = 0; properties.font_size * i <= height; i++) {
         temp_text_box.offset_y = (height - (properties.font_size * i)) / 2;
     }
+    
+    std::string temp_str;
+    while(TextWidthX(temp_str.c_str(), 50) + properties.font_size < width) temp_str += "a";
+    temp_text_box.offset_x = (width - TextWidthX(temp_str.c_str(), 50)) / 2;
 
     text_boxes.push_back(temp_text_box);
 }
@@ -44,7 +48,7 @@ void TextBox::Draw()
     for(TextBox_Data text_box: text_boxes) {
         DrawRectangleRounded(Rectangle{(float)text_box.x, (float)text_box.y, (float)text_box.width, (float)text_box.height}, text_box.properties.roundness, text_box.properties.smoothness, text_box.color);
         for(int i = 0; i < (int)text_box.text.size(); i++) {
-            DrawTextEx(font, text_box.text[i].c_str(), Vector2{ (float)text_box.x + TEXT_BOX_OFFSET_X, (float)text_box.y + (text_box.properties.font_size * i) + text_box.offset_y }, text_box.properties.font_size, 1, BLACK);
+            DrawTextEx(font, text_box.text[i].c_str(), Vector2{ (float)text_box.x + text_box.offset_x, (float)text_box.y + (text_box.properties.font_size * i) + text_box.offset_y }, text_box.properties.font_size, 1, BLACK);
         }
         if(text_box.selected && cursor.visible) DrawRectangle(cursor.x, cursor.y + text_box.offset_y, cursor.width, cursor.height, WHITE);
     }
@@ -105,7 +109,7 @@ void TextBox::Type(TextBox_Data &textbox)
 
     if(key != 0) {
         //checks if the text length is higher than the width of the text box, or not
-        bool can_write = (MeasureTextEx(font, text_ptr->c_str(), textbox.properties.font_size, 1).x + (textbox.properties.font_size / 2) < textbox.width);
+        bool can_write = (TextWidthX(text_ptr->c_str(), 50) + textbox.properties.font_size < textbox.width);
         bool can_new_line = (textbox.properties.font_size * (textbox.id + 2) <= textbox.height);
 
         //adds a new line if the text box is high enough
@@ -184,8 +188,13 @@ std::string TextBox::NewLine(std::string *text)
 
 void TextBox::Cursor(const TextBox_Data &textbox)
 {
-    cursor.x = textbox.x + MeasureTextEx(font, textbox.text[textbox.id].c_str(), textbox.properties.font_size, 1).x + TEXT_BOX_OFFSET_X + 5;
-    cursor.y = textbox.y + TEXT_BOX_OFFSET_Y + (textbox.properties.font_size * textbox.id);
+    cursor.x = textbox.x + TextWidthX(textbox.text[textbox.id].c_str(), 50) + textbox.offset_x + 5;
+    cursor.y = textbox.y + CURSOR_OFFSET_Y + (textbox.properties.font_size * textbox.id);
     cursor.life_time = CURSOR_LIFE_TIME;
     cursor.visible = true;
+}
+
+inline short TextBox::TextWidthX(const char* text, char font_size)
+{
+    return MeasureTextEx(font, text, font_size, 1).x;
 }

@@ -1,2 +1,2 @@
-# Custom Organization App
-A custom organization app I made for a friend and for myself! (Also for fun :P)
+# PROJECT MANAGEMENT APP
+A simple and lightweight app that you can use to organize and manage your projects!

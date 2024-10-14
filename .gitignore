@@ -30,7 +30,7 @@
 *.out
 *.app
 
-# Other
+# Miscellaneous
 TODO.md
 .DS_Store
 organization-app

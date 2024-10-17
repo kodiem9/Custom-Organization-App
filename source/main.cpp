@@ -1,14 +1,18 @@
-#include <raylib.h>
+#include <App.hpp>
 
 int main()
 {
     InitWindow(1280, 720, "App");
     SetTargetFPS(60);
 
+    App app;
+
     while(!WindowShouldClose())
     {
         BeginDrawing();
-        ClearBackground(LIGHTGRAY);
+            app.Update();
+            ClearBackground(LIGHTGRAY);
+            app.Draw();
         EndDrawing();
     }
 

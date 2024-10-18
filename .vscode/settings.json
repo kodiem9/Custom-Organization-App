@@ -4,5 +4,9 @@
         "LICENSE": true,
         "*.md": true,
         "*.exe": true
+    },
+    "files.associations": {
+        "vector": "cpp",
+        "bitset": "cpp"
     }
 }

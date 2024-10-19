@@ -6,30 +6,46 @@ class Button
     public:
         Button(int16_t x, int16_t y, int16_t width, int16_t height);
         void Draw();
+        void Update();
 
-        void InitColor(Color bg, Color outline);
-        void InitOutline(uint8_t thick, bool rounded = false, float roundess = 0.0f, uint8_t segments = 0);
-        void InitTexture(const char* texture_path);
-        void InitTextureStretching(bool stretch);
-
+        void i_Color(Color bg, Color outline);
+        void i_Outline(uint8_t thick, bool rounded = false, float roundess = 0.0f, uint8_t segments = 0);
+        void i_Texture(const char* texture_path);
+        void i_TextureStretching(bool stretch);
+        void i_ID(uint8_t id);
+        uint8_t f_GetID();
+        bool f_IsClicked();
+        void f_Break();
 
     private:
         void p_DrawTexture();
 
         // Outline attributes
-        Color outline_color;
-        float outline_roundness;
-        int8_t outline_thick, outline_segments;
-        bool outline_rounded;
+        struct Outline
+        {
+            Color color;
+            float roundess;
+            int8_t thick, segments;
+            bool rounded;
+        };
 
         // Texture attributes
-        bool texture_stretch, texture_exists;
-        Rectangle source;
-        Rectangle dest;
-        int16_t offset_x, offset_y;
+        struct Texture
+        {
+            bool stretch, valid;
+            Texture2D texture;
+            Rectangle source;
+            Rectangle dest;
+            int16_t offset_x, offset_y;
+        };
 
-        // Other attributes
-        Color bg_color;
-        Texture2D texture;
+        Outline outline;
+        Texture texture;
+
+        Color bg_color, color;
         int16_t x, y, width, height;
+        uint8_t brightness, id;
+        inline static uint8_t amount;
+        int8_t state;
+        bool clicked, stop;
 };
